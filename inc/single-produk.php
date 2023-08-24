@@ -26,7 +26,13 @@ $viewers    = pietergoosen_get_post_views(get_the_ID());
         <div class="row">
 
             <!-- Do the left sidebar check -->
-            <?php get_template_part('global-templates/left-sidebar-check'); ?>
+            <?php
+            if (!function_exists('justg_left_sidebar_check')) {
+                get_template_part('global-templates/left-sidebar-check');
+            } else {
+                do_action('justg_before_content');
+            }
+            ?>
 
             <main class="site-main" id="main">
 
@@ -144,10 +150,14 @@ $viewers    = pietergoosen_get_post_views(get_the_ID());
 
             </main><!-- #main -->
 
+            <?php if (!function_exists('justg_right_sidebar_check')) { ?>
         </div>
 
         <!-- Do the right sidebar check -->
         <?php get_template_part('global-templates/right-sidebar-check'); ?>
+    <?php } else { ?>
+        <?php do_action('justg_after_content'); ?>
+    <?php } ?>
 
     </div><!-- .row -->
 
