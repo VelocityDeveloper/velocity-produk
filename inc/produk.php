@@ -38,7 +38,6 @@ function vd_produk_post_type()
 }
 
 
-
 //register taxonomy
 add_action('init', 'vd_kategori_produk');
 function vd_kategori_produk()
