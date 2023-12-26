@@ -32,7 +32,7 @@ $container  = get_theme_mod('vsstem_container_type', $container);
                         <select name="select" onchange="if (this.value) window.location.href=this.value" class="border-dark px-2 py-1">
                             <option value="#" selected>Urutkan Berdasarkan</option>
                             <option value="<?php echo home_url($wp->request); ?>?orderby=title&order=asc">Nama, A &raquo; Z</option>
-                            <option value="<?php echo home_url($wp->request); ?>?orderby=title&order=desc">Nama, A &raquo; Z</option>
+                            <option value="<?php echo home_url($wp->request); ?>?orderby=title&order=desc">Nama, Z &raquo; A</option>
                             <option value="<?php echo home_url($wp->request); ?>?orderby=date&order=asc">Tanggal, Lama &raquo; Terbaru</option>
                             <option value="<?php echo home_url($wp->request); ?>?orderby=date&order=desc">Tanggal, Terbaru &raquo; Lama</option>
                             <option value="<?php echo home_url($wp->request); ?>?orderby=meta_value_num&meta_key=ak_harga_fix&order=asc">Harga, Rendah &raquo; Tinggi</option>
