@@ -30,6 +30,7 @@ class VelocityProduct_Produk_Metabox
     public function render_custom_metabox($post)
     {
         // Ambil nilai yang sudah tersimpan jika ada
+        $gallerys = get_post_meta($post->ID, 'gallery_images', true);
         $harga  = get_post_meta($post->ID, 'ak_harga', true);
         $diskon = get_post_meta($post->ID, 'ak_harga_dis', true);
         $kode   = get_post_meta($post->ID, 'ak_kode', true);
@@ -38,6 +39,29 @@ class VelocityProduct_Produk_Metabox
         // Tampilkan input field di dalam metabox
         echo '<table>';
         echo '<tbody>';
+
+        echo '<tr>';
+        echo '<td>';
+        echo '<label for="ak_stok">';
+        _e('Gallery : ', 'vdprodukdetail');
+        echo '</label> ';
+        echo '</td>';
+        echo '<td>';
+        echo '<div class="grid-container" id="gallery_images_list">';
+            if (!empty($gallerys)) :
+                foreach ($gallerys as $image_id) :
+                    $image = wp_get_attachment_image_src($image_id, 'thumbnail');
+                    echo '<div class="grid-item">';
+                        echo '<img src="'.esc_url($image[0]).'" alt="Gallery Image">';
+                        echo '<input type="hidden" name="gallery_images[]" value="'.esc_attr($image_id).'">';
+                        echo '<span class="remove-gallery-image">X</span>';
+                    echo '</div>';
+                endforeach;
+            endif;
+        echo '</div>';
+        echo '<input type="button" id="upload_gallery_images_button" class="button" value="Upload Images">';
+        echo '</td>';
+        echo '</tr>';
 
         echo '<tr>';
         echo '<td>';
@@ -100,6 +124,13 @@ class VelocityProduct_Produk_Metabox
         if (!current_user_can('edit_post', $post_id)) return;
 
         // Simpan nilai input ke dalam database
+        if (isset($_POST['gallery_images'])) {
+            $gallery_images = array_map('intval', $_POST['gallery_images']);
+            update_post_meta($post_id, 'gallery_images', $gallery_images);
+        } else {
+            delete_post_meta($post_id, 'gallery_images');
+        }
+
         if (isset($_POST['ak_stok'])) {
             update_post_meta($post_id, 'ak_stok', sanitize_text_field($_POST['ak_stok']));
         }

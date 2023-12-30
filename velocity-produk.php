@@ -32,6 +32,19 @@ if (!defined('VELOCITY_PRODUK_PLUGIN'))         define('VELOCITY_PRODUK_PLUGIN',
 if (!defined('VELOCITY_PRODUK_PLUGIN_DIR'))     define('VELOCITY_PRODUK_PLUGIN_DIR', plugin_dir_path(__FILE__)); // Plugin directory absolute path with the trailing slash. Useful for using with includes eg - /var/www/html/wp-content/plugins/velocity-produk/
 if (!defined('VELOCITY_PRODUK_PLUGIN_URL'))     define('VELOCITY_PRODUK_PLUGIN_URL', plugin_dir_url(__FILE__)); // URL to the plugin folder with the trailing slash. Useful for referencing src eg - http://localhost/wp/wp-content/plugins/velocity-produk/
 
+add_action('admin_enqueue_scripts', 'velocityproduk_admin_scripts');
+function velocityproduk_admin_scripts($hook)
+{
+    if ($hook === 'post.php' || $hook === 'post-new.php') {
+        wp_enqueue_media();
+        // Get the version.
+        $the_version = VELOCITY_PRODUK_VERSION;
+        wp_enqueue_style('velocityproduk-admin-style', VELOCITY_PRODUK_PLUGIN_URL . 'admin/css/admin-style.css', array(), $the_version, false);
+
+        wp_enqueue_script('vdproduk-admin-script', VELOCITY_PRODUK_PLUGIN_URL . 'admin/js/admin-script.js');
+    }
+}
+
 /**
  * function register asset css and js to frontend public.
  *
@@ -57,13 +70,13 @@ if (!function_exists('velocityproduk_register_scripts')) {
     add_action('wp_enqueue_scripts', 'velocityproduk_register_scripts');
 }
 
-
 // Load everything
 $includes = [
     'inc/produk.php',
     'inc/produk-metabox.php',
     'inc/produk-setting.php',
     'inc/pagination.php',
+    'inc/shortcodes.php',
     'inc/beli.php',
     'inc/widget.php',
     'admin/register-page.php',
