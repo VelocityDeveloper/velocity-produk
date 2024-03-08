@@ -4,7 +4,7 @@
  * Plugin Name: Velocity Produk
  * Plugin URI: http://velocitydeveloper.com/
  * Description: Hanya Untuk klien VelocityDeveloper.
- * Version: 2.0.2
+ * Version: 2.1.0
  * Author: Velocity Developer
  * Author URI: http://velocitydeveloper.com/
  * License: Dilarang menggunakan plugin ini tanpa izin dari velocitydeveloper.com, plugin ini hanya digunakan untuk produk dari Velocity Developer
