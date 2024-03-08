@@ -32,14 +32,14 @@ class velocity_listproduk_widget extends WP_Widget
 
         // This is where you run the code and display the output
         // The Query.
-        $args = array(
+        $args_p = array(
             'post_type'         => 'produk',
             'orderby'           => 'date',
             'order'             => 'desc',
             'posts_per_page'    => $perpage,
         );
 
-        $the_query = new WP_Query($args);
+        $the_query = new WP_Query($args_p);
 
         // The Loop.
         if ($the_query->have_posts()) {
