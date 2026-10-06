@@ -48,9 +48,10 @@ class VelocityProduct_Produk_Metabox
         echo '</td>';
         echo '<td>';
         echo '<div class="grid-container" id="gallery_images_list">';
-            if (!empty($gallerys)) :
+            if (!empty($gallerys) && is_array($gallerys)) :
                 foreach ($gallerys as $image_id) :
                     $image = wp_get_attachment_image_src($image_id, 'thumbnail');
+                    if (!$image) continue; // lampiran sudah dihapus dari Media
                     echo '<div class="grid-item">';
                         echo '<img src="'.esc_url($image[0]).'" alt="Gallery Image">';
                         echo '<input type="hidden" name="gallery_images[]" value="'.esc_attr($image_id).'">';
@@ -125,7 +126,7 @@ class VelocityProduct_Produk_Metabox
 
         // Simpan nilai input ke dalam database
         if (isset($_POST['gallery_images'])) {
-            $gallery_images = array_map('intval', $_POST['gallery_images']);
+            $gallery_images = array_values(array_unique(array_filter(array_map('absint', (array) $_POST['gallery_images']))));
             update_post_meta($post_id, 'gallery_images', $gallery_images);
         } else {
             delete_post_meta($post_id, 'gallery_images');

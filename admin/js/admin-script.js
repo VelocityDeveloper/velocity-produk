@@ -24,7 +24,9 @@ jQuery(document).ready(function ($) {
             var attachments = galleryUploader.state().get('selection').toJSON();
 
             $.each(attachments, function (index, attachment) {
-                $('#gallery_images_list').append('<div class="grid-item"><img src="' + attachment.sizes.thumbnail.url + '" alt="Gallery Image"><input type="hidden" name="gallery_images[]" value="' + attachment.id + '"><span class="remove-gallery-image">X</span></div>');
+                // Gambar kecil (<= ukuran thumbnail) tidak punya sizes.thumbnail
+                var url = attachment.sizes && attachment.sizes.thumbnail ? attachment.sizes.thumbnail.url : attachment.url;
+                $('#gallery_images_list').append('<div class="grid-item"><img src="' + url + '" alt="Gallery Image"><input type="hidden" name="gallery_images[]" value="' + parseInt(attachment.id, 10) + '"><span class="remove-gallery-image">X</span></div>');
             });
         });
 

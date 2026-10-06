@@ -37,7 +37,9 @@ $viewers    = pietergoosen_get_post_views(get_the_ID());
 
                     <div class="row">
                         <div class="col-md-6">
-                            <?php if (has_post_thumbnail()) : ?>
+                            <?php if (velocityproduk_get_gallery(get_the_ID())) : ?>
+                                <?php echo do_shortcode('[slider-produk post_id="' . get_the_ID() . '"]'); ?>
+                            <?php elseif (has_post_thumbnail()) : ?>
                                 <?php echo get_the_post_thumbnail(get_the_ID(), 'full', array('class' => 'aligncenter w-100')); ?>
                             <?php else : ?>
                                 <svg viewBox="0 0 300 250" style="background-color: #ececec;" xmlns="http://www.w3.org/2000/svg">
@@ -98,6 +100,7 @@ $viewers    = pietergoosen_get_post_views(get_the_ID());
                                         <td>
                                             <?php
                                             $cats = get_the_terms(get_the_ID(), 'kategori');
+                                            $cats = is_array($cats) ? $cats : [];
                                             foreach ($cats as $k => $cat) {
                                                 echo '<a class="me-1 mr-1 mb-1" href="' . esc_url(get_category_link($cat->term_id)) . '">' . esc_html($cat->name) . '</a>, ';
                                             }
