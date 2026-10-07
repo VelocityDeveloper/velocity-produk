@@ -52,38 +52,30 @@ $viewers    = pietergoosen_get_post_views(get_the_ID());
                             <h2> <?php echo get_the_title(); ?></h2>
                             <table class="table table-vdproduk mt-3 mt-md-4">
                                 <tbody>
-                                    <tr>
-                                        <td>Stock Produk</td>
-                                        <td>
-                                            <?php
-                                            $stok = get_post_meta($post->ID, 'ak_stok', true);
-                                            echo $stok ? $stok : '-';
-                                            ?>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Kode Produk</td>
-                                        <td>
-                                            <?php
-                                            $kode = get_post_meta($post->ID, 'ak_kode', true);
-                                            echo $kode ? $kode : '-';
-                                            ?>
-                                        </td>
-                                    </tr>
+                                    <?php
+                                    // Stok & kode produk hanya tampil bila diisi.
+                                    $stok = trim((string) get_post_meta($post->ID, 'ak_stok', true));
+                                    $kode = trim((string) get_post_meta($post->ID, 'ak_kode', true));
+                                    $velharga    = (float) get_post_meta($post->ID, 'ak_harga', true);
+                                    $velhargadis = (float) get_post_meta($post->ID, 'ak_harga_dis', true);
+                                    ?>
+                                    <?php if ($stok !== '') : ?>
+                                        <tr>
+                                            <td>Stock Produk</td>
+                                            <td><?php echo esc_html($stok); ?></td>
+                                        </tr>
+                                    <?php endif; ?>
+                                    <?php if ($kode !== '') : ?>
+                                        <tr>
+                                            <td>Kode Produk</td>
+                                            <td><?php echo esc_html($kode); ?></td>
+                                        </tr>
+                                    <?php endif; ?>
                                     <tr>
                                         <td>Harga</td>
-                                        <td>
-                                            <?php
-                                            $velharga       = get_post_meta($post->ID, 'ak_harga', true);
-                                            $velhargadis    = get_post_meta($post->ID, 'ak_harga_dis', true);
-
-                                            echo $velhargadis ? '<s color: #c01a1a;> Rp ' : 'Rp ';
-                                            echo $velharga ? number_format($velharga, 2) : '-';
-                                            echo $velhargadis ? '</s> Rp ' . number_format($velhargadis, 2) : '';
-                                            ?>
-                                        </td>
+                                        <td><?php echo velocityproduk_harga_html($post->ID, false); ?></td>
                                     </tr>
-                                    <?php if ($velhargadis) : ?>
+                                    <?php if ($velharga > 0 && $velhargadis > 0) : ?>
                                         <tr>
                                             <td>Anda Hemat</td>
                                             <td>

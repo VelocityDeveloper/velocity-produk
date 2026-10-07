@@ -15,7 +15,7 @@
             $lab_disk       = get_option('vdproduk_label_diskon', 'ya');
             $velharga       = get_post_meta($post->ID, 'ak_harga', true);
             $velhargadis    = get_post_meta($post->ID, 'ak_harga_dis', true);
-            if ($lab_disk == 'ya' && $velharga && $velhargadis) {
+            if ($lab_disk == 'ya' && (float) $velharga > 0 && (float) $velhargadis > 0) {
                 $diskonper = ($velhargadis / $velharga) * 100;
                 $diskonjadi = 100 - $diskonper;
                 echo '<div class="label-diskon"><span>' . number_format($diskonjadi, 1, ',', '') . '%</span></div>';
@@ -32,9 +32,7 @@
             <div class="row">
                 <div class="col-12 my-2">
                     <?php
-                    echo $velhargadis ? '<small><s color: #c01a1a;> Rp ' : 'Rp ';
-                    echo $velharga ? number_format($velharga, 2) : '-';
-                    echo $velhargadis ? '</s></small> Rp ' . number_format($velhargadis, 2) : '';
+                    echo velocityproduk_harga_html($post->ID);
                     ?>
                 </div>
                 <div class="col-12">

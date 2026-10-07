@@ -63,11 +63,7 @@ class velocity_listproduk_widget extends WP_Widget
                 echo '<a href="' . get_the_permalink() . '">' . esc_html(get_the_title()) . '</a>';
 
                 echo '<div class="mt-1">';
-                $velharga       = get_post_meta(get_the_ID(), 'ak_harga', true);
-                $velhargadis    = get_post_meta(get_the_ID(), 'ak_harga_dis', true);
-                echo $velhargadis ? '<small><s color: #c01a1a;> Rp ' : 'Rp ';
-                echo $velharga ? number_format($velharga, 2) : '-';
-                echo $velhargadis ? '</s></small> Rp ' . number_format($velhargadis, 2) : '';
+                echo velocityproduk_harga_html(get_the_ID());
                 echo '</div>';
 
                 echo '</div>';

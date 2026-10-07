@@ -4,7 +4,7 @@
  * Plugin Name: Velocity Produk
  * Plugin URI: http://velocitydeveloper.com/
  * Description: Hanya Untuk klien VelocityDeveloper.
- * Version: 2.1.1
+ * Version: 2.1.2
  * Author: Velocity Developer
  * Author URI: http://velocitydeveloper.com/
  * License: Dilarang menggunakan plugin ini tanpa izin dari velocitydeveloper.com, plugin ini hanya digunakan untuk produk dari Velocity Developer
@@ -27,7 +27,7 @@ if (!defined('WPINC')) {
  *
  * @since 2.0.0
  */
-if (!defined('VELOCITY_PRODUK_VERSION'))        define('VELOCITY_PRODUK_VERSION', '2.1.1'); // Plugin version constant
+if (!defined('VELOCITY_PRODUK_VERSION'))        define('VELOCITY_PRODUK_VERSION', '2.1.2'); // Plugin version constant
 if (!defined('VELOCITY_PRODUK_PLUGIN'))         define('VELOCITY_PRODUK_PLUGIN', trim(dirname(plugin_basename(__FILE__)), '/')); // Name of the plugin folder eg - 'velocity-toko'
 if (!defined('VELOCITY_PRODUK_PLUGIN_DIR'))     define('VELOCITY_PRODUK_PLUGIN_DIR', plugin_dir_path(__FILE__)); // Plugin directory absolute path with the trailing slash. Useful for using with includes eg - /var/www/html/wp-content/plugins/velocity-produk/
 if (!defined('VELOCITY_PRODUK_PLUGIN_URL'))     define('VELOCITY_PRODUK_PLUGIN_URL', plugin_dir_url(__FILE__)); // URL to the plugin folder with the trailing slash. Useful for referencing src eg - http://localhost/wp/wp-content/plugins/velocity-produk/
@@ -134,6 +134,29 @@ function velocityproduk_get_gallery($post_id)
         return [];
     }
     return array_values(array_filter(array_map('absint', $gallery), 'wp_attachment_is_image'));
+}
+
+/**
+ * Harga produk siap tampil. Harga kosong/0 -> "Hubungi Admin" (bukan "Rp -").
+ *
+ * @param int  $post_id ID produk.
+ * @param bool $kecil   Harga coret dibungkus <small> (kartu & widget).
+ */
+function velocityproduk_harga_html($post_id, $kecil = true)
+{
+    $harga  = (float) get_post_meta($post_id, 'ak_harga', true);
+    $diskon = (float) get_post_meta($post_id, 'ak_harga_dis', true);
+    if ($harga <= 0 && $diskon <= 0) {
+        return '<span class="vdproduk-hubungi-admin">' . esc_html__('Hubungi Admin', 'velocity-produk') . '</span>';
+    }
+    if ($harga <= 0) {
+        return 'Rp ' . number_format($diskon, 2);
+    }
+    if ($diskon > 0) {
+        $coret = '<s style="color: #c01a1a;">Rp ' . number_format($harga, 2) . '</s>';
+        return ($kecil ? '<small>' . $coret . '</small>' : $coret) . ' Rp ' . number_format($diskon, 2);
+    }
+    return 'Rp ' . number_format($harga, 2);
 }
 
 // Load everything
