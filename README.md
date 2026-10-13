@@ -3,6 +3,9 @@ Plugin Daftar Produk untuk Web Biasa
 
 ## Changelog
 
+### 2.1.3
+- Paginasi arsip produk memakai markup plugin sendiri (Bootstrap 5, rata tengah): teks "Posts navigation" dari paginasi tema (kelas `sr-only` yang tidak dikenal Bootstrap 5) tidak lagi tampil.
+
 ### 2.1.1
 - Galeri produk tampil di halaman single produk (slider + thumbnail); tanpa galeri tetap memakai gambar unggulan.
 - Slick & Magnific Popup dimuat oleh plugin sendiri bila tema/addons belum memuatnya — galeri tidak lagi error di tema tanpa Slick (velocity-pakete, kesehatan1, dll.) atau saat VD Gallery velocity-addons nonaktif. Tidak dimuat ganda.
