@@ -16,6 +16,11 @@ add_shortcode('slider-produk', function($atts){
     $height     = absint($atribut['height']) ?: 600;
     $navertical = $atribut['nav-vertical'] === 'false' ? 'false' : 'true';
     $gallery    = velocityproduk_get_gallery($post_id);
+    // Gambar utama ikut di depan slider, seperti sebelum 2.1.1.
+    $thumb_id   = (int) get_post_thumbnail_id($post_id);
+    if ($thumb_id && !in_array($thumb_id, $gallery, true)) {
+        array_unshift($gallery, $thumb_id);
+    }
     $ratio      = ($height / $width) * 100;
 
     velocityproduk_enqueue_gallery_assets();

@@ -3,6 +3,9 @@ Plugin Daftar Produk untuk Web Biasa
 
 ## Changelog
 
+### 2.1.4
+- Gambar utama produk kembali tampil sebagai slide pertama di galeri detail produk (sejak 2.1.1 hanya gambar galeri yang tampil).
+
 ### 2.1.3
 - Paginasi arsip produk memakai markup plugin sendiri (Bootstrap 5, rata tengah): teks "Posts navigation" dari paginasi tema (kelas `sr-only` yang tidak dikenal Bootstrap 5) tidak lagi tampil.
 

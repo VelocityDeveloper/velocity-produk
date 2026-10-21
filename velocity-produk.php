@@ -4,7 +4,7 @@
  * Plugin Name: Velocity Produk
  * Plugin URI: http://velocitydeveloper.com/
  * Description: Hanya Untuk klien VelocityDeveloper.
- * Version: 2.1.3
+ * Version: 2.1.4
  * Author: Velocity Developer
  * Author URI: http://velocitydeveloper.com/
  * License: Dilarang menggunakan plugin ini tanpa izin dari velocitydeveloper.com, plugin ini hanya digunakan untuk produk dari Velocity Developer
@@ -27,7 +27,7 @@ if (!defined('WPINC')) {
  *
  * @since 2.0.0
  */
-if (!defined('VELOCITY_PRODUK_VERSION'))        define('VELOCITY_PRODUK_VERSION', '2.1.3'); // Plugin version constant
+if (!defined('VELOCITY_PRODUK_VERSION'))        define('VELOCITY_PRODUK_VERSION', '2.1.4'); // Plugin version constant
 if (!defined('VELOCITY_PRODUK_PLUGIN'))         define('VELOCITY_PRODUK_PLUGIN', trim(dirname(plugin_basename(__FILE__)), '/')); // Name of the plugin folder eg - 'velocity-toko'
 if (!defined('VELOCITY_PRODUK_PLUGIN_DIR'))     define('VELOCITY_PRODUK_PLUGIN_DIR', plugin_dir_path(__FILE__)); // Plugin directory absolute path with the trailing slash. Useful for using with includes eg - /var/www/html/wp-content/plugins/velocity-produk/
 if (!defined('VELOCITY_PRODUK_PLUGIN_URL'))     define('VELOCITY_PRODUK_PLUGIN_URL', plugin_dir_url(__FILE__)); // URL to the plugin folder with the trailing slash. Useful for referencing src eg - http://localhost/wp/wp-content/plugins/velocity-produk/
